@@ -1,0 +1,9 @@
+services:
+  generate:
+    build: .
+    volumes:
+      - type: bind
+        source: ..
+        target: /out
+    environment:
+      OUTPUT_DIR: /out

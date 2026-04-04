@@ -86,7 +86,12 @@ def append_metrics_jsonl(path, record):
 
 def main():
     parser = argparse.ArgumentParser(description="Spark job над HDFS для лабораторной (замер времени и RAM).")
-    parser.add_argument("--hdfs_url", type=str, default="hdfs://localhost:9000/dataset.csv")
+    parser.add_argument(
+        "--hdfs_url",
+        type=str,
+        default=os.environ.get("HDFS_URL", "hdfs://localhost:9000/dataset.csv"),
+        help="По умолчанию: переменная HDFS_URL или hdfs://localhost:9000/... (в Docker см. Dockerfile)",
+    )
     parser.add_argument("--optimize", action="store_true", help="repartition + persist/cache + warmup count")
     parser.add_argument(
         "--experiment",

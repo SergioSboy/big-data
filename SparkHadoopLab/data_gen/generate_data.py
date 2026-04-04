@@ -1,11 +1,18 @@
-import pandas as pd
-import numpy as np
-import random
 import os
+import random
+
+import numpy as np
+import pandas as pd
 
 
-def generate_dataset(num_rows=150000, filename="dataset.csv"):
-    print(f"Генерация {num_rows} строк...")
+def generate_dataset(num_rows=150000, filename=None):
+    output_dir = os.environ.get("OUTPUT_DIR", ".")
+    if filename is None:
+        filename = os.environ.get("OUTPUT_FILENAME", "dataset.csv")
+    os.makedirs(output_dir, exist_ok=True)
+    path = os.path.join(output_dir, filename)
+
+    print(f"Генерация {num_rows} строк в {path}...")
 
     np.random.seed(42)
 
@@ -22,8 +29,8 @@ def generate_dataset(num_rows=150000, filename="dataset.csv"):
     }
 
     df = pd.DataFrame(data)
-    df.to_csv(filename, index=False)
-    print(f"Готово! Файл {filename} сохранен. Размер: {os.path.getsize(filename) / (1024 * 1024):.2f} MB")
+    df.to_csv(path, index=False)
+    print(f"Готово! Файл {path} сохранен. Размер: {os.path.getsize(path) / (1024 * 1024):.2f} MB")
 
 
 if __name__ == "__main__":

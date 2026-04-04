@@ -1,0 +1,19 @@
+x-spark-image: &spark-image
+  build: .
+  image: sparkhadooplab-spark:latest
+  volumes:
+    - ./results:/app/results
+  environment:
+    HDFS_URL: hdfs://host.docker.internal:9000/dataset.csv
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+services:
+  spark:
+    <<: *spark-image
+    ports:
+      - "4040:4040"
+
+  plot:
+    <<: *spark-image
+    entrypoint: ["python", "plot_results.py"]
