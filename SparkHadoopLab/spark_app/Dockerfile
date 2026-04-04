@@ -13,7 +13,7 @@ COPY app.py plot_results.py ./
 RUN mkdir -p /app/results
 
 ENV PYTHONUNBUFFERED=1
-# С хоста NameNode доступен так (Docker Desktop; на Linux см. README / docker-compose)
-ENV HDFS_URL=hdfs://host.docker.internal:9000/dataset.csv
+# В docker compose контейнер в сети hadoop_lab_net → имя namenode резолвится (см. README).
+ENV HDFS_URL=hdfs://namenode:9000/dataset.csv
 
 ENTRYPOINT ["python", "app.py"]

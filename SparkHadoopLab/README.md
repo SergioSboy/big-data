@@ -24,7 +24,7 @@ docker compose -f spark_app/docker-compose.yml build
 
 ---
 
-## 2. Генерация `dataset.csv` в Docker
+## 2. Генерация `dataset.csv` в Docker (при необходимости)
 
 Каталог **`SparkHadoopLab`** монтируется в контейнер как `/out`; файл появится в корне лабораторной: `SparkHadoopLab/dataset.csv`.
 
@@ -45,12 +45,14 @@ docker compose -f data_gen/docker-compose.yml run --rm generate
 ```bash
 cd hadoop_1dn
 docker compose up -d
-# дождаться NameNode, http://localhost:9870
 
-docker cp ../dataset.csv namenode:/dataset.csv
-docker exec -it namenode hdfs dfs -put -f /dataset.csv /dataset.csv
 cd ..
+docker cp dataset.csv namenode:/dataset.csv
+docker exec namenode hdfs dfs -put -f /dataset.csv /dataset.csv
+docker exec namenode hdfs dfs -ls /dataset.csv
 ```
+
+Убедитесь, что в выводе `ls` есть `/dataset.csv`. Если команды Spark пишут `PATH_NOT_FOUND`, чаще всего файл не залит или кластер подняли с **`docker compose down -v`** (тома HDFS пустые) — выполните `docker cp` и `hdfs dfs -put` снова.
 
 ### 3.2. Три DataNode (после остановки первого кластера)
 
@@ -58,23 +60,26 @@ cd ..
 cd hadoop_1dn && docker compose down -v && cd ..
 cd hadoop_3dn
 docker compose up -d
-docker cp ../dataset.csv namenode:/dataset.csv
-docker exec -it namenode hdfs dfs -put -f /dataset.csv /dataset.csv
+
 cd ..
+docker cp dataset.csv namenode:/dataset.csv
+docker exec namenode hdfs dfs -put -f /dataset.csv /dataset.csv
+docker exec namenode hdfs dfs -ls /dataset.csv
 ```
 
 Параметры кластеров (блок **2 МиБ**, репликация, лимиты памяти) — в соответствующих `docker-compose.yml`.
+
+Hadoop и DataNode подключены к **общей сети Docker `hadoop_lab_net`** (имя фиксировано в compose). Она создаётся при первом `docker compose up` в `hadoop_1dn` или `hadoop_3dn`. После обновления compose пересоздайте кластер: `docker compose down` и снова `up -d`.
 
 ---
 
 ## 4. Spark-приложение в Docker
 
-Контейнер Spark **не** в сети Hadoop: доступ к NameNode на хосте идёт по **`host.docker.internal:9000`** (задано в `spark_app/docker-compose.yml` и в образе через `HDFS_URL`).
+Контейнер Spark подключается к **той же сети `hadoop_lab_net`**, что и NameNode/DataNode. URL по умолчанию: **`hdfs://namenode:9000/dataset.csv`**. Так клиент HDFS получает от NameNode адреса DataNode, **доступные из контейнера Spark** (иначе при доступе только к порту 9000 на хосте возникает `BlockMissingException`: внутренние IP DN не маршрутизируются из другой сети).
 
-- **Docker Desktop** (macOS / Windows): имя `host.docker.internal` обычно уже работает.
-- **Linux**: в `spark_app/docker-compose.yml` добавлено `extra_hosts: host.docker.internal:host-gateway` (Docker 20.10+).
+**Порядок:** сначала поднимите Hadoop (§3), чтобы сеть **`hadoop_lab_net`** существовала; затем запускайте Spark.
 
-Логи и метрики пишутся в **`spark_app/results/`** на хосте (том `./results:/app/results`). Spark UI: **http://localhost:4040** (порт проброшен у сервиса `spark`).
+Логи и метрики пишутся в **`spark_app/results/`** на хосте (том `./results:/app/results`). Spark UI: **http://localhost:4040**.
 
 Из корня **`SparkHadoopLab`**:
 
@@ -87,28 +92,11 @@ cd ..
 
 Дополнительные аргументы `app.py` (после `run --rm spark`): например `--shuffle_partitions 12`, `--repartition_cols 8`, `--results_dir /app/results`.
 
-Явный URL HDFS: переопределите переменную или флаг:
+Явный URL HDFS (редко нужно):
 
 ```bash
-docker compose -f spark_app/docker-compose.yml run --rm -e HDFS_URL=hdfs://host.docker.internal:9000/dataset.csv spark --experiment 1dn_spark
+docker compose -f spark_app/docker-compose.yml run --rm -e HDFS_URL=hdfs://namenode:9000/dataset.csv spark --experiment 1dn_spark
 ```
-
-### Запуск без Compose (напоминание)
-
-```bash
-docker build -t sparkhadooplab-spark spark_app
-docker run --rm \
-  --add-host=host.docker.internal:host-gateway \
-  -e HDFS_URL=hdfs://host.docker.internal:9000/dataset.csv \
-  -v "$(pwd)/spark_app/results:/app/results" \
-  -p 4040:4040 \
-  sparkhadooplab-spark \
-  --experiment 1dn_spark
-```
-
-На Linux флаг `--add-host` обязателен, если не используете compose с `extra_hosts`.
-
----
 
 ## 5. Графики
 

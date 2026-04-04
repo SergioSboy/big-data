@@ -144,7 +144,21 @@ def main():
     mem0 = get_memory_usage_mb()
 
     logging.info("Чтение CSV из HDFS (inferSchema)...")
-    df = spark.read.option("header", True).option("inferSchema", True).csv(args.hdfs_url)
+    try:
+        df = spark.read.option("header", True).option("inferSchema", True).csv(args.hdfs_url)
+    except Exception as e:  # noqa: BLE001
+        err = str(e)
+        if "PATH_NOT_FOUND" in err or "Path does not exist" in err:
+            logging.error(
+                "Файл в HDFS не найден по %s (ожидается объект /dataset.csv в HDFS).\n"
+                "Загрузите данные из корня SparkHadoopLab:\n"
+                "  docker cp dataset.csv namenode:/dataset.csv\n"
+                "  docker exec namenode hdfs dfs -put -f /dataset.csv /dataset.csv\n"
+                "Проверка: docker exec namenode hdfs dfs -ls /dataset.csv\n"
+                "После «docker compose down -v» содержимое HDFS обнуляется — положите файл снова.",
+                args.hdfs_url,
+            )
+        raise
 
     if args.optimize:
         logging.info("Оптимизация: repartition(%s), persist, материализация count()", args.repartition_cols)

@@ -1,0 +1,124 @@
+2026-04-04 16:06:37 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:06:37 [INFO] Старт: experiment=1dn_spark optimize=False hdfs=hdfs://host.docker.internal:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:06:37 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:11:00 [INFO] Closing down clientserver connection
+2026-04-04 16:12:36 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:12:36 [INFO] Старт: experiment=1dn_spark optimize=False hdfs=hdfs://host.docker.internal:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:12:36 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:16:53 [INFO] Closing down clientserver connection
+2026-04-04 16:21:43 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:21:43 [INFO] Старт: experiment=1dn_spark optimize=False hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:21:43 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:21:43 [INFO] Closing down clientserver connection
+2026-04-04 16:23:43 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:23:43 [INFO] Старт: experiment=1dn_spark optimize=False hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:23:43 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:23:43 [INFO] Closing down clientserver connection
+2026-04-04 16:25:37 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:25:37 [INFO] Старт: experiment=1dn_spark optimize=False hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:25:37 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:25:38 [INFO] Группировка и агрегация по department
+2026-04-04 16:25:38 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:25:38 [INFO] Action: collect()
+2026-04-04 16:25:39 [INFO] Результаты (строк): 6
+2026-04-04 16:25:39 [INFO]   Row(department='HR', avg_salary=75025.9016945186, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:25:39 [INFO]   Row(department='Marketing', avg_salary=75124.45006810615, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:25:39 [INFO]   Row(department='Sales', avg_salary=74960.21163606367, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:25:39 [INFO]   Row(department='Engineering', avg_salary=74972.23311446984, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:25:39 [INFO]   Row(department='Support', avg_salary=75248.92133240592, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:25:39 [INFO]   Row(department='Finance', avg_salary=74993.08858409557, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:25:39 [INFO] Метрики: время=2.1145 с, ΔRAM драйвера≈0.41 MB
+2026-04-04 16:25:39 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:25:39 [INFO] Closing down clientserver connection
+2026-04-04 16:26:24 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:26:24 [INFO] Старт: experiment=1dn_spark optimize=True hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:26:24 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:26:25 [INFO] Оптимизация: repartition(6), persist, материализация count()
+2026-04-04 16:26:26 [INFO] После warmup: строк в DataFrame = 150000
+2026-04-04 16:26:26 [INFO] Группировка и агрегация по department
+2026-04-04 16:26:26 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:26:26 [INFO] Action: collect()
+2026-04-04 16:26:27 [INFO] Результаты (строк): 6
+2026-04-04 16:26:27 [INFO]   Row(department='HR', avg_salary=75025.90169451828, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:26:27 [INFO]   Row(department='Sales', avg_salary=74960.2116360633, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:26:27 [INFO]   Row(department='Marketing', avg_salary=75124.45006810657, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:26:27 [INFO]   Row(department='Engineering', avg_salary=74972.2331144705, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:26:27 [INFO]   Row(department='Finance', avg_salary=74993.08858409575, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:26:27 [INFO]   Row(department='Support', avg_salary=75248.92133240598, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:26:27 [INFO] Метрики: время=2.5678 с, ΔRAM драйвера≈0.43 MB
+2026-04-04 16:26:27 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:26:27 [INFO] Closing down clientserver connection
+2026-04-04 16:28:57 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:28:57 [INFO] Старт: experiment=3dn_spark optimize=False hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:28:57 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:28:58 [INFO] Closing down clientserver connection
+2026-04-04 16:29:53 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:29:53 [INFO] Старт: experiment=3dn_spark optimize=False hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:29:53 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:29:55 [INFO] Группировка и агрегация по department
+2026-04-04 16:29:55 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:29:55 [INFO] Action: collect()
+2026-04-04 16:29:55 [INFO] Результаты (строк): 6
+2026-04-04 16:29:55 [INFO]   Row(department='HR', avg_salary=75025.9016945186, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:29:55 [INFO]   Row(department='Marketing', avg_salary=75124.45006810615, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:29:55 [INFO]   Row(department='Sales', avg_salary=74960.21163606367, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:29:55 [INFO]   Row(department='Engineering', avg_salary=74972.23311446984, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:29:55 [INFO]   Row(department='Support', avg_salary=75248.92133240592, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:29:55 [INFO]   Row(department='Finance', avg_salary=74993.08858409557, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:29:55 [INFO] Метрики: время=2.2968 с, ΔRAM драйвера≈0.41 MB
+2026-04-04 16:29:55 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:29:56 [INFO] Closing down clientserver connection
+2026-04-04 16:30:44 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:30:44 [INFO] Старт: experiment=3dn_spark_opt optimize=True hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:30:44 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:30:46 [INFO] Оптимизация: repartition(6), persist, материализация count()
+2026-04-04 16:30:46 [INFO] После warmup: строк в DataFrame = 150000
+2026-04-04 16:30:46 [INFO] Группировка и агрегация по department
+2026-04-04 16:30:46 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:30:46 [INFO] Action: collect()
+2026-04-04 16:30:47 [INFO] Результаты (строк): 6
+2026-04-04 16:30:47 [INFO]   Row(department='HR', avg_salary=75025.90169451828, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:30:47 [INFO]   Row(department='Sales', avg_salary=74960.2116360633, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:30:47 [INFO]   Row(department='Marketing', avg_salary=75124.45006810657, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:30:47 [INFO]   Row(department='Engineering', avg_salary=74972.2331144705, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:30:47 [INFO]   Row(department='Finance', avg_salary=74993.08858409575, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:30:47 [INFO]   Row(department='Support', avg_salary=75248.92133240598, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:30:47 [INFO] Метрики: время=2.6672 с, ΔRAM драйвера≈0.43 MB
+2026-04-04 16:30:47 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:30:47 [INFO] Closing down clientserver connection
+2026-04-04 16:31:05 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:31:05 [INFO] Старт: experiment=3dn_spark_opt optimize=True hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:31:05 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:31:06 [INFO] Оптимизация: repartition(6), persist, материализация count()
+2026-04-04 16:31:07 [INFO] После warmup: строк в DataFrame = 150000
+2026-04-04 16:31:07 [INFO] Группировка и агрегация по department
+2026-04-04 16:31:07 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:31:07 [INFO] Action: collect()
+2026-04-04 16:31:08 [INFO] Результаты (строк): 6
+2026-04-04 16:31:08 [INFO]   Row(department='HR', avg_salary=75025.90169451828, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:31:08 [INFO]   Row(department='Sales', avg_salary=74960.2116360633, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:31:08 [INFO]   Row(department='Marketing', avg_salary=75124.45006810657, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:31:08 [INFO]   Row(department='Engineering', avg_salary=74972.2331144705, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:31:08 [INFO]   Row(department='Finance', avg_salary=74993.08858409575, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:31:08 [INFO]   Row(department='Support', avg_salary=75248.92133240598, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:31:08 [INFO] Метрики: время=2.7046 с, ΔRAM драйвера≈0.43 MB
+2026-04-04 16:31:08 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:31:08 [INFO] Closing down clientserver connection
+2026-04-04 16:38:19 [INFO] SparkListener недоступен в этой сборке PySpark — jobs/stages только через ключевые точки логов.
+2026-04-04 16:38:19 [INFO] Старт: experiment=1dn_spark_opt optimize=True hdfs=hdfs://namenode:9000/dataset.csv shuffle_partitions=10
+2026-04-04 16:38:19 [INFO] Чтение CSV из HDFS (inferSchema)...
+2026-04-04 16:38:21 [INFO] Оптимизация: repartition(6), persist, материализация count()
+2026-04-04 16:38:21 [INFO] После warmup: строк в DataFrame = 150000
+2026-04-04 16:38:21 [INFO] Группировка и агрегация по department
+2026-04-04 16:38:21 [INFO] Фильтр и сортировка (дополнительный stage shuffle)
+2026-04-04 16:38:21 [INFO] Action: collect()
+2026-04-04 16:38:22 [INFO] Результаты (строк): 6
+2026-04-04 16:38:22 [INFO]   Row(department='HR', avg_salary=75025.90169451828, max_score=5.0, avg_age=40.568689715397134)
+2026-04-04 16:38:22 [INFO]   Row(department='Sales', avg_salary=74960.2116360633, max_score=5.0, avg_age=40.50479181766932)
+2026-04-04 16:38:22 [INFO]   Row(department='Marketing', avg_salary=75124.45006810657, max_score=5.0, avg_age=40.528945154440926)
+2026-04-04 16:38:22 [INFO]   Row(department='Engineering', avg_salary=74972.2331144705, max_score=5.0, avg_age=40.51527609834744)
+2026-04-04 16:38:22 [INFO]   Row(department='Finance', avg_salary=74993.08858409575, max_score=5.0, avg_age=40.47278028517794)
+2026-04-04 16:38:22 [INFO]   Row(department='Support', avg_salary=75248.92133240598, max_score=5.0, avg_age=40.45527518378701)
+2026-04-04 16:38:22 [INFO] Метрики: время=2.4853 с, ΔRAM драйвера≈0.43 MB
+2026-04-04 16:38:22 [INFO] Метрики дописаны в /app/results/metrics.jsonl
+2026-04-04 16:38:22 [INFO] Closing down clientserver connection

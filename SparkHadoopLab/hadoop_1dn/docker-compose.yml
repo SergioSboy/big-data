@@ -1,5 +1,10 @@
 version: "3"
 
+networks:
+  hadoop_lab_net:
+    name: hadoop_lab_net
+    driver: bridge
+
 services:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
@@ -17,6 +22,8 @@ services:
       resources:
         limits:
           memory: 1G
+    networks:
+      - hadoop_lab_net
 
   datanode1:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
@@ -30,3 +37,5 @@ services:
       resources:
         limits:
           memory: 1G
+    networks:
+      - hadoop_lab_net

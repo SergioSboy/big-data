@@ -1,18 +1,27 @@
+# Spark подключается к сети hadoop_lab_net (создаётся при docker compose up в hadoop_1dn / hadoop_3dn).
+# Иначе NameNode отдаёт внутренние IP DataNode, недоступные с другой Docker-сети → BlockMissingException.
+
 x-spark-image: &spark-image
   build: .
   image: sparkhadooplab-spark:latest
   volumes:
     - ./results:/app/results
   environment:
-    HDFS_URL: hdfs://host.docker.internal:9000/dataset.csv
-  extra_hosts:
-    - "host.docker.internal:host-gateway"
+    HDFS_URL: hdfs://namenode:9000/dataset.csv
+
+networks:
+  hadoop_lab_net:
+    external: true
+    name: hadoop_lab_net
 
 services:
   spark:
     <<: *spark-image
     ports:
       - "4040:4040"
+    networks:
+      - default
+      - hadoop_lab_net
 
   plot:
     <<: *spark-image
