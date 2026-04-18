@@ -1,0 +1,55 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+
+# виртуальные окружения
+.venv/
+venv/
+env/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Секреты и локальный конфиг ---
+.env
+.env.*
+!.env.example
+
+# --- macOS / редакторы ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# --- Данные пайплайна (тяжёлые / воспроизводимые локально) ---
+# CSV/Parquet с Kaggle — скачать отдельно; Delta — результат run_bronze/silver/gold
+data/delta/
+data/*.csv
+data/*.parquet
+
+# MLflow: SQLite, артефакты моделей, UI-данные
+mlflow_data/
+
+# Логи контейнеров и приложения
+logs/
+*.log
+
+# --- Spark / Hive (если появятся в каталоге проекта) ---
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Временные файлы
+*.tmp
+*.temp
+.cache/
