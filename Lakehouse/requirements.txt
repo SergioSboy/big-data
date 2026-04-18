@@ -1,0 +1,8 @@
+delta-spark==3.0.0
+setuptools
+mlflow==2.8.1
+pandas>=2.0,<2.3
+numpy>=1.24,<2
+polars==0.20.9
+deltalake>=0.15,<0.18
+pyarrow>=14.0.0
